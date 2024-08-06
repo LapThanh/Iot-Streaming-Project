@@ -4,7 +4,7 @@ from pyspark.sql.functions import col, from_json
 
 schema_journey = StructType() \
     .add("device_id", StringType()) \
-    .add("timestamp", TimestampType) \
+    .add("timestamp", TimestampType()) \
     .add("location",ArrayType(DoubleType())) \
     .add("speed", FloatType()) \
     .add("direction", StringType()) \
@@ -29,7 +29,7 @@ schema_motion = StructType() \
     .add("battery_level", FloatType()) \
     .add("location", ArrayType(DoubleType())) \
     .add("device_status", StringType()) \
-    .add("timestamp", TimestampType)
+    .add("timestamp", TimestampType())
 
 schema_air_quality = StructType() \
     .add("device_id", StringType()) \
@@ -39,7 +39,7 @@ schema_air_quality = StructType() \
     .add("temperature", StringType()) \
     .add("air_quality_index", FloatType()) \
     .add("location", ArrayType(DoubleType())) \
-    .add("timestamp", TimestampType)
+    .add("timestamp", TimestampType())
 
 schema_environmental_temperature = StructType() \
     .add("device_id", StringType()) \
@@ -48,4 +48,4 @@ schema_environmental_temperature = StructType() \
     .add("dew_point", FloatType()) \
     .add("heat_index", FloatType()) \
     .add("location", ArrayType(DoubleType())) \
-    .add("timestamp", TimestampType)
+    .add("timestamp", TimestampType())

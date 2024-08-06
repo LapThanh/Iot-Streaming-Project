@@ -14,7 +14,6 @@ kafka_password = '7Zg7mbMRLR4dNhIof/b/JhfH/tqxS54HBNmtea5awim21zdnhsaqw2ail+f3zv
 spark = SparkSession.builder \
     .appName("KafkaSparkStreaming") \
     .master("spark://172.24.0.3:7077") \
-    .config("spark.jars.packages", "org.postgresql:postgresql:42.3.5") \
     .getOrCreate()
 
 
@@ -80,8 +79,13 @@ def handle_invalid_data(df):
                 .otherwise(lit(random_pressure()))
             )
         )
+    df = df.dropna()
     return df    
 sensor_df = handle_invalid_data(sensor_df)
+air_df = handle_invalid_data(air_df)
+motion_df = handle_invalid_data(motion_df)
+enviroment_df = handle_invalid_data(enviroment_df)
+journey_df = handle_invalid_data(journey_df)
 
 jdbc_url = "jdbc:postgresql://postgres:5432/airflow"
 jdbc_properties = {
@@ -89,15 +93,28 @@ jdbc_properties = {
     "password": "airflow",
     "driver": "org.postgresql.Driver"
 }
-query = sensor_df.writeStream \
-        .outputMode("update") \
+def WriteDataToTimeScale(df,table,checkpoint):
+    query =df.writeStream \
+        .outputMode("append") \
         .foreachBatch(lambda batch_df, epoch_id: batch_df.write.jdbc(
             url=jdbc_url,
-            table="livedatabase.sensor",
+            table=table,
             mode="append",
             properties=jdbc_properties
         )) \
-        .option("checkpointLocation",  "/app/checkpoint1") \
+        .option("checkpointLocation",  f"/app/checkpoint/{checkpoint}") \
         .start()
+    return query
+    
 
-query.awaitTermination()
+queries = [
+    WriteDataToTimeScale(journey_df, "livedatabase.journey", "JourneyCheckPoint"),
+    WriteDataToTimeScale(sensor_df, "livedatabase.sensor", "SensorCheckpoint"),
+    WriteDataToTimeScale(air_df, "livedatabase.air_quality", "AirCheckPoint"),
+    WriteDataToTimeScale(motion_df, "livedatabase.motion", "MotionCheckpoint"),
+    WriteDataToTimeScale(enviroment_df, "livedatabase.environmental_temperature", "EnvironmentCheckpoint")
+]
+
+# Chờ tất cả các luồng dữ liệu hoàn tất
+for query in queries:
+    query.awaitTermination()

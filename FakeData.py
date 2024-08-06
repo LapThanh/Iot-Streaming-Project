@@ -76,7 +76,7 @@ def get_next_time():
     return start_time 
 
 #tao data di chuyen va thong tin cua xe,
-def moving_and_device_data( device_id,steps=20):
+def moving_and_device_data( device_id,steps=1000):
     global start_record
     #vi du: latitude = (100-80)/10 thi moi lan di chuyen se tang 2 latitude => so step se la so vong lap
     start_record["latitude"] += ((HCM_LONGTI_LATI["latitude"] - HaNoi_LONGTI_LATI["latitude"])/steps)
@@ -115,7 +115,7 @@ def generate_journey(producer,device_id):
         Produce_data_to_topic(producer,"topic3",air_quality_data,)
         Produce_data_to_topic(producer,"topic4",environmental_temperature_data)
         
-        time.sleep(5)
+        time.sleep(1)
         
         
 if __name__ == "__main__":
