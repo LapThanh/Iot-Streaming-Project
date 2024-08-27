@@ -22,23 +22,7 @@ Script: CreateHypertable.sql
 Mô tả: Dữ liệu sau khi được xử lý sẽ được lưu trữ trong TimescaleDB dưới dạng các hypertable, giúp tối ưu hóa cho các truy vấn thời gian thực.
 Dockerized Environment:
 
-Cấu hình: docker-compose.yml, dockerfile
-Mô tả: Dự án sử dụng Docker để dễ dàng triển khai và quản lý các dịch vụ cần thiết, bao gồm Apache Airflow, Spark, Kafka, và TimescaleDB.
-Hướng Dẫn Cài Đặt
-Yêu Cầu Trước
-Docker & Docker Compose
-Python 3.8+
-Apache Kafka
-Apache Spark
-TimescaleDB
-Các Bước Cài Đặt
-Clone Repository:
 
-bash
-Copy code
-git clone https://github.com/LapThanh/Iot-Streaming-Project.git
-cd Iot-Streaming-Project
-Cài Đặt Docker:
 
 Xây dựng và khởi động các container:
 bash
