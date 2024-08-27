@@ -1,4 +1,4 @@
-Chào mừng bạn đến với dự án Iot-Streaming-Project! Đây là một dự án mô phỏng và xử lý dữ liệu IoT theo thời gian thực, áp dụng các công nghệ tiên tiến như Apache Kafka, Apache Spark, và TimescaleDB. Mục tiêu của dự án là xây dựng một hệ thống có khả năng tạo, truyền tải, xử lý, và lưu trữ dữ liệu IoT từ các cảm biến giả lập.
+ Đây là một dự án mô phỏng và xử lý dữ liệu IoT theo thời gian thực, áp dụng các công nghệ tiên tiến như Apache Kafka, Apache Spark, và TimescaleDB. Mục tiêu của dự án là xây dựng một hệ thống có khả năng tạo, truyền tải, xử lý, và lưu trữ dữ liệu IoT từ các cảm biến giả lập.
 
 Mục Tiêu Dự Án
 Dự án này được thiết kế nhằm đáp ứng nhu cầu xử lý dữ liệu thời gian thực trong các hệ thống IoT. Cụ thể, nó giúp thu thập và xử lý dữ liệu từ nhiều loại cảm biến như cảm biến nhiệt độ, cảm biến chuyển động, chất lượng không khí, và dữ liệu hành trình của phương tiện.
